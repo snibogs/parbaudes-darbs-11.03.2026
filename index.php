@@ -61,3 +61,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <input type="number" name="skaits" id="skaits" min="1" max="5" value="<?= htmlspecialchars($skaits, ENT_QUOTES, 'UTF-8') ?>"><br>
     <button type="submit">Iesniegt</button>
 </form>
+
+<?php 
+
+if ($kludas === []) {
+    echo "Kopējā cena: " . aprekins($cena, $skaits) . "EUR<br>";
+    echo "Vārds: " . htmlspecialchars($vards, ENT_QUOTES, 'UTF-8') . "<br>";
+    echo "E-pasts: " . htmlspecialchars($epasts, ENT_QUOTES, 'UTF-8') . "<br>";
+    echo "Izvēlētais kurss: " . htmlspecialchars($kursi[$_POST['kurss']]['nosaukums'], ENT_QUOTES, 'UTF-8') . "<br>";
+    echo "Dalībnieku skatis: " . htmlspecialchars($skaits, ENT_QUOTES, 'UTF-8') . "<br>";
+    echo "Nemācēju dabūt atlaidi lai rāda";
+}
+?>
