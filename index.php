@@ -17,31 +17,47 @@ echo "<br>";
 echo "Kursu skaits: " . count($kursi) . "<br>";
 
 echo "<br><br>";
+
+
+$kludas = [];
+$vards = "";
+$epasts = "";
+$skaits = 0;
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $vards = trim($_POST['vards'] ?? "");
+    $epasts = trim($_POST['epasts'] ?? "");
+    $skaits = intval($_POST['skaits'] ?? 0);
+
+    if ($vards === "") {
+        $kludas["vards"] = "Vārds ir obligāts";
+    }
+
+    if (!filter_var($epasts, FILTER_VALIDATE_EMAIL)) {
+        $kludas["epasts"] = "Nederīgs e-pasts";
+    }
+}
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kursu pieteikuma kalkulators</title>
-</head>
-<body>
-    <form method="POST" action="">
-        <label for="vards">Vārds</label>
-        <input type="text" name="vards" id="vards" required><br>
-        <label for="epasts">E-pasts</label>
-        <input type="email" name="epasts" id="epasts"required><br>
-        <label for="kurss">Kursa izvēle</label>
-        <select name="kurss" id="kurss" required>
-            <?php
-            foreach ($kursi as $key => $kurss) {
-                echo "<option value='$key'>" . $kurss['nosaukums'] . " - " . $kurss['cena'] . "EUR</option>";
-            } ?>
-        </select><br>
-        <label for="skaits">Dalībnieku skaits</label>
-        <input type="number" name="skaits" id="skaits" min="1" max="5" required><br>
-        <button tupe="submit">Iesniegt</button>
-    </form>
-</body>
-</html>
+<form method="POST" action="">
+    <label for="vards">Vārds</label>
+    <input type="text" name="vards" id="vards" value="<?= htmlspecialchars($vards, ENT_QUOTES, 'UTF-8') ?>"><br>        
+        <?php if (isset($kludas["vards"])): ?>
+            <p><?=htmlspecialchars($kludas["vards"]) ?></p>
+        <?php endif; ?>
+    <label for="epasts">E-pasts</label>
+    <input type="email" name="epasts" id="epasts" value="<?= htmlspecialchars($epasts, ENT_QUOTES, 'UTF-8') ?>"><br>
+        <?php if (isset($kludas["epasts"])): ?>
+            <p><?=htmlspecialchars($kludas["epasts"]) ?></p>
+        <?php endif; ?>
+    <label for="kurss">Kursa izvēle</label>
+    <select name="kurss" id="kurss">
+        <?php
+        foreach ($kursi as $key => $kurss) {
+            echo "<option value='$key'>" . $kurss['nosaukums'] . " - " . $kurss['cena'] . "EUR</option>";
+        } ?>
+    </select><br>
+    <label for="skaits">Dalībnieku skaits</label>
+    <input type="number" name="skaits" id="skaits" min="1" max="5" value="<?= htmlspecialchars($skaits, ENT_QUOTES, 'UTF-8') ?>"><br>
+    <button type="submit">Iesniegt</button>
+</form>
