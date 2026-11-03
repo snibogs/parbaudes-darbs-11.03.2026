@@ -2,6 +2,10 @@
 
 $cena = $kursi[$_POST['kurss']]['cena'] ?? 0;
 
+function starpsumma($cena, $skaits) {
+    return $cena * $skaits;
+}
+
 function aprekins($cena, $skaits) {
 
     $atlaide = 0;

@@ -1,0 +1,41 @@
+body {
+    background-color: #f0f0f0;
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+    padding: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+td {
+    border: 1px solid;
+    width: 150px;
+    padding: 5px;
+    text-align: center;
+}
+
+
+input[type="text"], input[type="email"], input[type="number"], select {
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 4px;
+
+}
+
+button {
+    background-color: #75db79;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+}
+
+button:hover {
+    background-color: #4caf50;
+    padding: 6.5px 13px;
+}
